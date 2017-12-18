@@ -1,5 +1,5 @@
 
-job('meta-seed') {
+job('h2m-meta-seed') {
     triggers {
         githubPush()
     }

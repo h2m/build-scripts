@@ -1,11 +1,21 @@
-package groovystuff
-
-import javaposse.jobdsl.dsl.DslFactory
-
-DslFactory dsl = this
-
-dsl.job("job-dsl-simple-job"){
-    steps{
-        shell('echo "Hello World"')
+job('groovystuff') {
+    triggers {
+        githubPush()
+    }
+    scm {
+        git {
+            remote {
+                github('h2m/groovystuff')
+            }
+            branch('master')
+        }
+    }
+    steps {
+        gradle {
+            tasks('clean')
+            tasks('build')
+            useWrapper(true)
+            makeExecutable(true)
+        }
     }
 }

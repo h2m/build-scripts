@@ -1,4 +1,4 @@
-job('h2m-seed') {
+job('groovystuff-seed') {
     triggers {
         githubPush()
     }
@@ -11,7 +11,12 @@ job('h2m-seed') {
         }
     }
     steps {
-        gradle("clean build")
+        gradle {
+            tasks('clean')
+            tasks('build')
+            useWrapper(true)
+            makeExecutable(true)
+        }
         dsl {
             external('jobs/groovystuff/*.groovy')
             removeAction('DISABLE')
