@@ -1,0 +1,22 @@
+apply plugin: 'groovy'
+
+repositories {
+	// for jenkins-job-dsl plugin
+	maven { url 'http://repo.jenkins-ci.org/releases/' }
+}
+
+configurations {
+	libs
+	compile.extendsFrom libs
+}
+
+dependencies {
+	libs "org.jenkins-ci.plugins:job-dsl:1.66"
+}
+
+task libs(type: Copy) {
+	into 'build/lib'
+	from configurations.libs
+}
+
+build.dependsOn libs
